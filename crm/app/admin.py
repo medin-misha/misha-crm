@@ -1,6 +1,8 @@
 from django.contrib import admin
 from .models import Service, AdCompany, Client, Contract
+
 # Register your models here.
+
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
@@ -24,5 +26,3 @@ class ClientAdmin(admin.ModelAdmin):
 class ServiceAdmin(admin.ModelAdmin):
     list_display = "name", "service", "conclusion_date", "price", "client"
     list_display_links = list_display
-
-
