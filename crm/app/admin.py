@@ -16,13 +16,13 @@ class AdCompanyAdmin(admin.ModelAdmin):
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = "full_name", "email", "phone", "is_active", "ad_company", "contract"
+    list_display = "full_name", "email", "phone", "is_active", "ad_company"
     list_display_links = list_display
 
 
 @admin.register(Contract)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = "name", "service", "conclusion_date", "price"
+    list_display = "name", "service", "conclusion_date", "price", "client"
     list_display_links = list_display
 
 

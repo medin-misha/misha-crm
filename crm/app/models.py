@@ -30,6 +30,20 @@ class AdCompany(models.Model):
         return self.name
 
 
+class Client(models.Model):
+    full_name: str = models.CharField(max_length=200)
+    phone: int = models.PositiveBigIntegerField()
+    email: str = models.EmailField()
+    is_active: bool = models.BooleanField(default=False)
+    ad_company: AdCompany = models.ForeignKey(to=AdCompany, on_delete=models.PROTECT)
+
+    def __str__(self) -> str:
+        return self.full_name
+
+    class Meta:
+        verbose_name = "client"
+
+
 class Contract(models.Model):
     name: str = models.CharField(max_length=200)
     service: Service = models.ForeignKey(to=Service, on_delete=models.CASCADE)
@@ -37,24 +51,10 @@ class Contract(models.Model):
     conclusion_date: date = models.DateField(null=True)
     days_of_action: int = models.PositiveIntegerField(null=True)
     price: float = models.DecimalField(decimal_places=1, max_digits=20)
+    client: Client = models.ForeignKey(to=Client, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "contract"
 
     def __str__(self) -> str:
         return self.name
-
-
-class Client(models.Model):
-    full_name: str = models.CharField(max_length=200)
-    phone: int = models.PositiveBigIntegerField()
-    email: str = models.EmailField()
-    is_active: bool = models.BooleanField(default=False)
-    ad_company: AdCompany = models.ForeignKey(to=AdCompany, on_delete=models.PROTECT)
-    contract: Contract = models.OneToOneField(to=Contract, on_delete=models.PROTECT)
-
-    def __str__(self) -> str:
-        return self.full_name
-
-    class Meta:
-        verbose_name = "client"
