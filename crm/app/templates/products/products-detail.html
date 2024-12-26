@@ -9,9 +9,9 @@
             <div class="card-body">
                 <h5 class="card-title fw-bold">{{ object.name }}</h5>
                 <p class="card-text">{{ object.description }}</p>
-                <div class="d-flex justify-content-end fw-bold">{{ object.cost }}руб</div>
+                <div class="d-flex justify-content-end fw-bold">{{ object.price }} Российских песо</div>
                 <div class="d-flex justify-content-center fw-bold">
-                    <a href="/products/{{ object.pk }}/edit" class="btn btn-primary">Редактировать</a>
+                    <a href="{% url 'app:services-edit' pk=object.pk %}" class="btn btn-primary">Редактировать</a>
                 </div>
             </div>
         </div>
