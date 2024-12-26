@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView, ListView
-from .models import Service, AdCompany, Client, Contract
+from ..models import Service, AdCompany, Client, Contract
 
 
 class UsersIndexView(TemplateView):
