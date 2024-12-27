@@ -9,7 +9,8 @@ media/*
 __pycache__/
 *.py[cod]
 *$py.class
-
+crm/static/documents/
+.idea
 # C extensions
 *.so
 
