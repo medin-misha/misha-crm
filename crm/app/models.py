@@ -18,7 +18,7 @@ class Service(models.Model):
 
 class AdCompany(models.Model):
     name: str = models.CharField(max_length=200)
-    service: Service = models.ForeignKey(to=Service, on_delete=models.PROTECT)
+    service: Service = models.ForeignKey(to=Service, null=True, on_delete=models.SET_NULL)
     promotional_channel: str = models.CharField(max_length=200, null=True)
     budget: float = models.DecimalField(decimal_places=1, max_digits=20)
 
@@ -35,7 +35,7 @@ class Client(models.Model):
     phone: int = models.PositiveBigIntegerField()
     email: str = models.EmailField()
     is_active: bool = models.BooleanField(default=False)
-    ad_company: AdCompany = models.ForeignKey(to=AdCompany, on_delete=models.PROTECT)
+    ad_company: AdCompany = models.ForeignKey(to=AdCompany, null=True, on_delete=models.SET_NULL)
 
     def __str__(self) -> str:
         return self.full_name
