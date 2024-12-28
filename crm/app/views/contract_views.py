@@ -6,17 +6,19 @@ from django.views.generic import (
     UpdateView,
 )
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from ..models import Service, AdCompany, Client, Contract
 
 
-class ContractListView(LoginRequiredMixin, ListView):
+class ContractListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
+    permission_required = "app.view_contract"
     template_name = "contracts/contracts-list.html"
     model = Contract
     context_object_name = "contracts"
 
 
-class ContractCreateView(LoginRequiredMixin, CreateView):
+class ContractCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
+    permission_required = "app.add_contract"
     template_name = "contracts/contracts-create.html"
     model = Contract
     fields = (
@@ -33,12 +35,14 @@ class ContractCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy("app:contracts-list")
 
 
-class ContractDetailView(LoginRequiredMixin, DetailView):
+class ContractDetailView(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
+    permission_required = "app.view_contract"
     template_name = "contracts/contracts-detail.html"
     model = Contract
 
 
-class ContractUpdateView(LoginRequiredMixin, UpdateView):
+class ContractUpdateView(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
+    permission_required = "app.change_contract"
     template_name = "contracts/contracts-edit.html"
     model = Contract
     fields = (
@@ -55,7 +59,8 @@ class ContractUpdateView(LoginRequiredMixin, UpdateView):
         return reverse_lazy("app:contracts-list")
 
 
-class ContractDeleteView(LoginRequiredMixin, DeleteView):
+class ContractDeleteView(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
+    permission_required = "app.delete_contract"
     template_name = "contracts/contracts-delete.html"
     model = Contract
 

@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 from ..models import Service, AdCompany, Client, Contract
 
 
@@ -9,12 +10,12 @@ class UsersIndexView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["products_count"] = Service.objects.all().distinct().count()
+        context["service_count"] = Service.objects.all().distinct().count()
         context["advertisements_count"] = AdCompany.objects.all().distinct().count()
-        context["leads_count"] = (
+        context["clients_count"] = (
             Client.objects.filter(is_active=False).all().distinct().count()
         )
-        context["customers_count"] = (
+        context["active_clients_count"] = (
             Client.objects.filter(is_active=True).all().distinct().count()
         )
 
@@ -23,7 +24,9 @@ class UsersIndexView(LoginRequiredMixin, TemplateView):
 
 class UserLoginView(LoginView):
     template_name = "registration/login.html"
-    redirect_authenticated_user = "app:user-index"
+
+    def get_success_url(self):
+        return reverse_lazy("app:user-index")
 
 
 class UserLogoutView(LogoutView):
