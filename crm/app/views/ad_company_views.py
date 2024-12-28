@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, TemplateView
 from django.urls import reverse_lazy
 from ..models import Service, AdCompany, Client, Contract
 
@@ -38,3 +38,12 @@ class AdCompanyDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy("app:ads-list")
+
+
+class AdCompanyStatisticView(TemplateView):
+    template_name = "ads/ads-statistic.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["ads"] = AdCompany.objects.all()
+        return context

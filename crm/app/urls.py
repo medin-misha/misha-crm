@@ -85,4 +85,5 @@ urlpatterns = [
     path("ads/detail/<int:pk>", ad_company_views.AdCompanyDetailView.as_view(), name="ads-detail"),
     path("ads/edit/<int:pk>", ad_company_views.AdCompanyUpdateView.as_view(), name="ads-edit"),
     path("ads/delete/<int:pk>", ad_company_views.AdCompanyDeleteView.as_view(), name="ads-delete"),
+    path("ads/statistic/", ad_company_views.AdCompanyStatisticView.as_view(), name="ads-statistic"),
 ]
