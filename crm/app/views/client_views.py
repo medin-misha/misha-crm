@@ -6,22 +6,23 @@ from django.views.generic import (
     DetailView,
 )
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from ..models import Service, AdCompany, Client, Contract
 
 
-class ActiveClientListView(ListView):
+class ActiveClientListView(LoginRequiredMixin, ListView):
     template_name = "leads/leads-list.html"
     queryset = Client.objects.filter(is_active=True).all()
     context_object_name = "leads"
 
 
-class ClientListView(ListView):
+class ClientListView(LoginRequiredMixin, ListView):
     template_name = "leads/leads-list.html"
     queryset = Client.objects.filter(is_active=False).all()
     context_object_name = "leads"
 
 
-class ClientCreateView(CreateView):
+class ClientCreateView(LoginRequiredMixin, CreateView):
     template_name = "leads/leads-create.html"
     fields = "full_name", "phone", "email", "is_active", "ad_company"
     model = Client
@@ -32,12 +33,12 @@ class ClientCreateView(CreateView):
         return reverse_lazy("app:active-client-list")
 
 
-class ClientDetailView(DetailView):
+class ClientDetailView(LoginRequiredMixin, DetailView):
     template_name = "leads/leads-detail.html"
     model = Client
 
 
-class ClientUpdateView(UpdateView):
+class ClientUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "leads/leads-edit.html"
     fields = "full_name", "phone", "email", "is_active", "ad_company"
     model = Client

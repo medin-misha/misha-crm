@@ -1,8 +1,10 @@
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from ..models import Service, AdCompany, Client, Contract
 
 
-class UsersIndexView(TemplateView):
+class UsersIndexView(LoginRequiredMixin, TemplateView):
     template_name = "users/index.html"
 
     def get_context_data(self, **kwargs):
@@ -17,3 +19,16 @@ class UsersIndexView(TemplateView):
         )
 
         return context
+
+
+class UserLoginView(LoginView):
+    template_name = "registration/login.html"
+    redirect_authenticated_user = "app:user-index"
+
+
+class UserLogoutView(LogoutView):
+    def dispatch(self, request, *args, **kwargs):
+        if request.method == "GET":
+            return self.post(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
+

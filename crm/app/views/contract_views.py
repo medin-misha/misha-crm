@@ -6,16 +6,17 @@ from django.views.generic import (
     UpdateView,
 )
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from ..models import Service, AdCompany, Client, Contract
 
 
-class ContractListView(ListView):
+class ContractListView(LoginRequiredMixin, ListView):
     template_name = "contracts/contracts-list.html"
     model = Contract
     context_object_name = "contracts"
 
 
-class ContractCreateView(CreateView):
+class ContractCreateView(LoginRequiredMixin, CreateView):
     template_name = "contracts/contracts-create.html"
     model = Contract
     fields = (
@@ -32,12 +33,12 @@ class ContractCreateView(CreateView):
         return reverse_lazy("app:contracts-list")
 
 
-class ContractDetailView(DetailView):
+class ContractDetailView(LoginRequiredMixin, DetailView):
     template_name = "contracts/contracts-detail.html"
     model = Contract
 
 
-class ContractUpdateView(UpdateView):
+class ContractUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "contracts/contracts-edit.html"
     model = Contract
     fields = (
@@ -54,7 +55,7 @@ class ContractUpdateView(UpdateView):
         return reverse_lazy("app:contracts-list")
 
 
-class ContractDeleteView(DeleteView):
+class ContractDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "contracts/contracts-delete.html"
     model = Contract
 

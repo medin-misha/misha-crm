@@ -11,6 +11,8 @@ app_name = "app"
 
 urlpatterns = [
     path("", user_views.UsersIndexView.as_view(), name="user-index"),
+    path("login/", user_views.UserLoginView.as_view(), name="user-login"),
+    path("logout/", user_views.UserLogoutView.as_view(), name="user-logout"),
     path("services/", service_views.ServiceListView.as_view(), name="services-list"),
     path(
         "services/new/",
