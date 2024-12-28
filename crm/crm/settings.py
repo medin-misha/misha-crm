@@ -125,7 +125,7 @@ USE_I18N = True
 USE_TZ = True
 
 LOGOUT_REDIRECT_URL = "app:user-login"
-LOGIN_URL = LOGOUT_REDIRECT_URL
+LOGIN_URL = "app:user-index"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
