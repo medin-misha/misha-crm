@@ -28,7 +28,7 @@ SECRET_KEY = "django-insecure-@978oi+2*p^hr$nm80#cxcosw23r$*u!8t!y!6ij4vurpc3609
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 POSTGRES_USER = os.environ.get("POSTGRES_USER")
 POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
